@@ -1,6 +1,7 @@
 import pandas as pd
 from sodapy import Socrata
 import plotly.express as px
+import plotly
 client = Socrata("data.seattle.gov", None)
 
 results = client.get("99yi-dthu", limit = 47000)
@@ -13,12 +14,9 @@ results_2021 = results_df.astype({'received_date': 'datetime64[ns]', 'occurred_d
 results_2021['year'] = results_2021['received_date'].dt.year
 
 results_2021 = results_2021[~results_2021.investigation_end_date.isnull()] 
-test = results_2021['investigation_begin_date'] > '2021-01-01' 
-
-test = results_2021['investigation_end_date'] - results_2021['investigation_begin_date']  
-
-
-test.median()
+# test = results_2021['investigation_begin_date'] > '2021-01-01' 
+# test = results_2021['investigation_end_date'] - results_2021['investigation_begin_date']  
+# test.median()
 
 
 results_2021['investigation_end_date'].head()
@@ -34,7 +32,9 @@ Incidents_yearly = pd.DataFrame(results_2021.groupby(['incident_type', 'year']).
 
 
 fig = px.histogram(Dispositions, x = "index", y = "disposition").show()
-fig1 = px.histogram(Incidents_yearly, x = "incident_type", y = "counts", facet_col = "year").show()
+fig1 = px.histogram(Incidents_yearly, x = "incident_type", y = "counts", facet_col = "year")
+
+fig1.write_html('histogram.html')
 
 
 results_2021.groupby(results_df['received_date'].dt.year)
