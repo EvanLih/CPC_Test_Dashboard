@@ -26,18 +26,20 @@ results_df['investigation_begin_date'].head()
 results_df= results_df.drop_duplicates(subset = 'file_number', keep = 'first')
 
 results_df = results_df.drop_duplicates(subset = 'file_number', keep = 'first')
-Dispositions = pd.DataFrame(results_df['disposition'].value_counts().reset_index())
-Dispositions = Dispositions.rename(index = {0:"disposition", 1:"count"} )
-
-
-Incidents_yearly = pd.DataFrame(results_2021.groupby(['incident_type', 'year']).size().reset_index(name = "counts")).sort_values('year', inplace = False)
+Dispositions_yearly = pd.DataFrame(results_df.groupby(['disposition', 'year']).size().reset_index(name = "counts")).sort_values('year', inplace = False)
 
 
 
+Incidents_yearly = pd.DataFrame(results_df.groupby(['incident_type', 'year']).size().reset_index(name = "counts")).sort_values('year', inplace = False)
 
-fig = px.histogram(Dispositions, x = "index", y = "disposition").show()
-fig1 = px.histogram(Incidents_yearly, x = "incident_type", y = "counts", facet_col = "year")
+
+
+
+fig = px.histogram(Dispositions_yearly, x = "disposition", y = "counts", facet_col = "year")
+fig1 = px.histogram(Incidents_yearly, x = "incident_type", y = "counts", facet_col = "year")()
 
 plotly.offline.plot(fig1, filename = 'F:/Github/CPC_Test_Dashboard/docs/histogram.html')
+plotly.offline.plot(fig, filename = 'F:/Github/CPC_Test_Dashboard/docs/histogram2.html')
+
 
 # results_2021.groupby(results_df['received_date'].dt.year)
