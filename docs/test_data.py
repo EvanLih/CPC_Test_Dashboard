@@ -28,6 +28,9 @@ results_df= results_df.drop_duplicates(subset = 'file_number', keep = 'first')
 results_df = results_df.drop_duplicates(subset = 'file_number', keep = 'first')
 Dispositions_yearly = pd.DataFrame(results_df.groupby(['disposition', 'year']).size().reset_index(name = "counts")).sort_values('year', inplace = False)
 
+#Subsetting to only include from 2014 onward 
+Dispositions_yearly = Dispositions_yearly.loc[Dispositions_yearly['year'] >=2014]
+
 
 
 Incidents_yearly = pd.DataFrame(results_df.groupby(['incident_type', 'year']).size().reset_index(name = "counts")).sort_values('year', inplace = False)
