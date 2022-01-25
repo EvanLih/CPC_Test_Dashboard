@@ -36,9 +36,9 @@ Dispositions_yearly = Dispositions_yearly.loc[Dispositions_yearly['year'] >=2014
 
 Incidents_yearly = Incidents_yearly.loc[Incidents_yearly['year']>=2014]
 
+#Dispositions can only contain No Allegations Sustained, Partially Sustained, All Allegations Sustained, and Rapid Adjudication Closed. ALl the other findings arte sent back to the CoC or 
 
-
-
+test = Dispositions_yearly[Dispositions_yearly['disposition'].isin(['OPA All Allegations Sustained', 'OPA No Allegations Sustained', 'OPA Partially Sustained', 'OPA Rapid Adjudication Closed'])]
 
 
 
