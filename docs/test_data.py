@@ -38,11 +38,14 @@ Incidents_yearly = Incidents_yearly.loc[Incidents_yearly['year']>=2014]
 
 #Dispositions can only contain No Allegations Sustained, Partially Sustained, All Allegations Sustained, and Rapid Adjudication Closed. ALl the other findings arte sent back to the CoC or 
 
-test = Dispositions_yearly[Dispositions_yearly['disposition'].isin(['OPA All Allegations Sustained', 'OPA No Allegations Sustained', 'OPA Partially Sustained', 'OPA Rapid Adjudication Closed'])]
+Dispositions_yearly = Dispositions_yearly[Dispositions_yearly['disposition'].isin(['OPA All Allegations Sustained', 'OPA No Allegations Sustained', 'OPA Partially Sustained', 'OPA Rapid Adjudication Closed', '-'])]
 
 
 
 fig = px.histogram(Dispositions_yearly, x = "disposition", y = "counts", facet_col = "year").update_xaxes(tickangle=30)
+
+fig.show()
+
 fig1 = px.histogram(Incidents_yearly, x = "incident_type", y = "counts", facet_col = "year").update_xaxes(tickangle=30)
 
 plotly.offline.plot(fig1, filename = 'F:/Github/CPC_Test_Dashboard/docs/histogram.html')
