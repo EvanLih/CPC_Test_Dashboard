@@ -46,16 +46,20 @@ Dispositions_yearly = Dispositions_yearly[Dispositions_yearly['disposition'].isi
 
 fig = px.histogram(Dispositions_yearly, x = "disposition", y = "counts", facet_col = "year").update_xaxes(tickangle=30)
 
-treemap = px.treemap(Dispositions_yearly, path = [ "disposition"], values = 'counts')
+treemap = px.treemap(Dispositions_yearly, path = ["year","disposition"], values = 'counts')
+totaltreemap = px.treemap(Dispositions_yearly, path = [ "disposition"], values = 'counts')
 
 
-# treemap.show()
+
+treemap.show()
 
 fig1 = px.histogram(Incidents_yearly, x = "incident_type", y = "counts", facet_col = "year").update_xaxes(tickangle=30)
 
 plotly.offline.plot(fig1, filename = 'F:/Github/CPC_Test_Dashboard/docs/histogram.html')
 plotly.offline.plot(fig, filename = 'F:/Github/CPC_Test_Dashboard/docs/histogram2.html')
 plotly.offline.plot(treemap, filename = 'F:/Github/CPC_Test_Dashboard/docs/treemap.html')
+plotly.offline.plot(totaltreemap, filename = 'F:/Github/CPC_Test_Dashboard/docs/treemap.html')
+
 
 
 
