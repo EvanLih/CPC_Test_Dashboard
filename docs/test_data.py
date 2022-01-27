@@ -40,7 +40,7 @@ Incidents_yearly = Incidents_yearly.loc[Incidents_yearly['year']>=2014]
 
 Dispositions_yearly = Dispositions_yearly[Dispositions_yearly['disposition'].isin(['OPA All Allegations Sustained', 'OPA No Allegations Sustained', 'OPA Partially Sustained', 'OPA Rapid Adjudication Closed', '-'])]
 
-
+Dispositions_yearly = Dispositions_yearly.rename(columns = {"-": "OPA Active Case"})
 
 fig = px.histogram(Dispositions_yearly, x = "disposition", y = "counts", facet_col = "year").update_xaxes(tickangle=30)
 
@@ -53,3 +53,4 @@ plotly.offline.plot(fig, filename = 'F:/Github/CPC_Test_Dashboard/docs/histogram
 
 
 # results_2021.groupby(results_df['received_date'].dt.year)
+
