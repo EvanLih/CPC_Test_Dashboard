@@ -34,6 +34,11 @@ Dispositions_yearly = pd.DataFrame(results_df.groupby(['disposition', 'year']).s
 Incidents_yearly = pd.DataFrame(results_df.groupby(['incident_type', 'year']).size().reset_index(name = "counts")).sort_values('year', inplace = False)
 
 
+##creating new subsets from 2019-2021, for flowchart data. 
+Incident_type_2019_2022 = Incidents_yearly.loc[Incidents_yearly['year'] >=2019]
+
+Incident_type_2019_2022 
+
 #Subsetting to only include from 2014 onward 
 Dispositions_yearly = Dispositions_yearly.loc[Dispositions_yearly['year'] >=2014]
 
@@ -47,18 +52,16 @@ Dispositions_yearly = Dispositions_yearly[Dispositions_yearly['disposition'].isi
 fig = px.histogram(Dispositions_yearly, x = "disposition", y = "counts", facet_col = "year").update_xaxes(tickangle=30)
 
 treemap = px.treemap(Dispositions_yearly, path = ["year","disposition"], values = 'counts')
-totaltreemap = px.treemap(Dispositions_yearly, path = [ "disposition"], values = 'counts')
+totaltreemap = px.treemap(Incident_type_2019_2022 , path = [ "disposition"], values = 'counts')
 
-
-
-treemap.show()
+totaltreemap.show()
 
 fig1 = px.histogram(Incidents_yearly, x = "incident_type", y = "counts", facet_col = "year").update_xaxes(tickangle=30)
 
 plotly.offline.plot(fig1, filename = 'F:/Github/CPC_Test_Dashboard/docs/histogram.html')
 plotly.offline.plot(fig, filename = 'F:/Github/CPC_Test_Dashboard/docs/histogram2.html')
 plotly.offline.plot(treemap, filename = 'F:/Github/CPC_Test_Dashboard/docs/treemap.html')
-plotly.offline.plot(totaltreemap, filename = 'F:/Github/CPC_Test_Dashboard/docs/treemap.html')
+plotly.offline.plot(totaltreemap, filename = 'F:/Github/CPC_Test_Dashboard/docs/totaltreemap.html')
 
 
 
