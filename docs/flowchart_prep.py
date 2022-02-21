@@ -2,6 +2,7 @@ import pandas as pd
 import plotly.express as px
 from sodapy import Socrata
 import webbrowser
+from time import sleep
 client = Socrata("data.seattle.gov", None)
 
 #OPA Internal Case Status
@@ -32,28 +33,34 @@ def OPA_Case_Tracker():
     except:
         print("This is an invalid OPA case number. Please Input a valid OPA Case #. ")
     # if df.loc[df['opa_case_number'] == Case, 'status_description'].iloc[0] == 'OPA Close Case':
+    sleep(5)
     try:
         webbrowser.open(case_urls.loc[case_urls['description'] == Case, 'url'].iloc[0])
     except:
         print("This case is not closed yet. ")
 
 
-case_url.loc[case_url['description'] == "2019OPA-0506", 'url'].iloc[0]
+# case_url.loc[case_url['description'] == "2019OPA-0506", 'url'].iloc[0]
 
 
-df.loc[df['opa_case_number'] == Case, 'status_description'].iloc[0]
+# df.loc[df['opa_case_number'] == Case, 'status_description'].iloc[0]
 
-OPA_Case_Tracker()
+df2['disposition'].value_counts()
 
-df2.loc[df2['file_number'] == "2017OPA-0405", 'disposition'].iloc[0]
-
-df.loc[df['opa_case_number'] == '2017OPA-0405', 'status_description'].iloc[0]
-
-"This current case's status is classified as {}".format(df.loc[df['opa_case_number'] == "2017OPA-0405", 'status_description'].iloc[0])
+unique_stastus = df['status_description'].value_counts()
 
 
-df['status_description'].value_counts()
+unique_stastus
 
-test = "2019OPA-0506"
+# df2.loc[df2['file_number'] == "2017OPA-0405", 'disposition'].iloc[0]
 
-test[0:4]
+# df.loc[df['opa_case_number'] == '2017OPA-0405', 'status_description'].iloc[0]
+
+# "This current case's status is classified as {}".format(df.loc[df['opa_case_number'] == "2017OPA-0405", 'status_description'].iloc[0])
+
+
+# df['status_description'].value_counts()
+
+# test = "2019OPA-0506"
+
+# test[0:4]
