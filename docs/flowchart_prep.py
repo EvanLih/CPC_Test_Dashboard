@@ -1,3 +1,4 @@
+from enum import unique
 import pandas as pd
 import plotly.express as px
 from sodapy import Socrata
@@ -30,14 +31,15 @@ def OPA_Case_Tracker():
     Case = input("Please Input OPA Case Number: ")
     try:
         print("This current case's status is classified as '{}'. The Disposition outcome is classified as '{}'".format(df.loc[df['opa_case_number'] == Case, 'status_description'].iloc[0], df2.loc[df2['file_number'] == Case, 'disposition'].iloc[0]))
+        sleep(5)
+        try:
+            webbrowser.open(case_urls.loc[case_urls['description'] == Case, 'url'].iloc[0])
+        except:
+            print("This case is not closed yet. ")
     except:
         print("This is an invalid OPA case number. Please Input a valid OPA Case #. ")
     # if df.loc[df['opa_case_number'] == Case, 'status_description'].iloc[0] == 'OPA Close Case':
-    sleep(5)
-    try:
-        webbrowser.open(case_urls.loc[case_urls['description'] == Case, 'url'].iloc[0])
-    except:
-        print("This case is not closed yet. ")
+
 
 
 # case_url.loc[case_url['description'] == "2019OPA-0506", 'url'].iloc[0]
@@ -45,12 +47,13 @@ def OPA_Case_Tracker():
 
 # df.loc[df['opa_case_number'] == Case, 'status_description'].iloc[0]
 
-df2['disposition'].value_counts()
+OPA_Case_Tracker()
 
-unique_stastus = df['status_description'].value_counts()
+# df2['disposition'].value_counts()
 
+# unique_status = df['status_description'].value_counts()
 
-unique_stastus
+# unique_status
 
 # df2.loc[df2['file_number'] == "2017OPA-0405", 'disposition'].iloc[0]
 
@@ -64,3 +67,5 @@ unique_stastus
 # test = "2019OPA-0506"
 
 # test[0:4]
+
+df.head()
